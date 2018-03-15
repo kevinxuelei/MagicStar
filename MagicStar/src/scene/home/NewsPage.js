@@ -213,9 +213,6 @@ class NewsPage extends PureComponent<Props>{
                 alert(error)
             })
     }
-
-
-
 }
 
 

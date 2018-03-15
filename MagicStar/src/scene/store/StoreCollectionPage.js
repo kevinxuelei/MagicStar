@@ -3,6 +3,12 @@
  * All rights reserved.
  */
 
+
+/**
+ * Copyright (c) 2018-present,xuelei dong
+ * All rights reserved.
+ */
+
 import React, {PureComponent} from 'react'
 import {
     View, Text, StyleSheet, ScrollView, TouchableHighlight, ListView, Image, StatusBar, FlatList,
@@ -16,10 +22,13 @@ import Swiper from 'react-native-swiper';
 import APIConst from "../../APIConst";
 import NavigationItem from "../../widget/NavigationItem";
 import ScrollableTabView,{ ScrollableTabBar } from 'react-native-scrollable-tab-view';
-import StoreCollectionPage from "./StoreCollectionPage";
 
 
 
+type Props = {
+    Id: string,
+    onCellSelected: Function,
+}
 
 type State = {
     dataList: Array<Object>,
@@ -27,40 +36,15 @@ type State = {
     adList: Array<Object>,
     secondTypeId: String,
     refreshing: boolean,
-    isHasSegment: boolean,
-    segmentIdList: Array<Object>,
+
 }
 
 
-class StoreCollectionScene extends PureComponent<>{
+class StoreCollectionPage extends PureComponent<Props>{
 
-    static navigationOptions = ({navigation}: any) =>({
-        headerTitle:(
-            <Text style={{fontSize:21, color:'black'}}>{navigation.state.params.info.title}</Text>
-        ),
-        headerStyle:{backgroundColor:color.mainBGColor},
-        headerLeft:(
-            <NavigationItem
-                icon={require('../../img/store/img_back_black.png')}
-                title='返回'
-                onPress={() => {
-                    navigation.goBack();
-                }}
-            />
-        ),
-        headerRight:(
-            <NavigationItem
-                icon={require('../../img/store/product_xiaolei.png')}
-                title='   '
-                onPress={() => {
-                    alert('search_action')
-                }}
-            />
-        ),
-    })
 
     // 构造
-      constructor(props) {
+    constructor(props) {
         super(props);
         // 初始状态
         this.state = {
@@ -69,52 +53,20 @@ class StoreCollectionScene extends PureComponent<>{
             secondTypeId:'',
             refreshing: false,
             adList: [],
-            isHasSegment: false,
-            segmentIdList: [],
+
         };
-      }
-
-
-    componentDidMount() {
-        //获取二级分类id
-        fetch(APIConst.Store_GetTypes + this.props.navigation.state.params.info.id)
-            .then((response)=>
-                response.json()
-            )
-            .then((json)=>{
-                console.log(json)
-                let DataArray = json.Data.Data
-                if (DataArray.length==1){
-                    this.state.isHasSegment = false;
-                    let item =  DataArray[0]
-                    this.state.secondTypeId=item.id
-                    this.loadMainData();
-                }
-                if (DataArray.length>1){
-
-                    this.state.isHasSegment = true;
-                    this.setState({
-                        isHasSegment:true,
-                        segmentIdList: DataArray,
-                    })
-
-                }
-
-
-            })
-            .catch((error)=>{
-                console.log(error)
-                alert(error)
-            })
     }
 
 
-
+    componentDidMount() {
+        this.loadMainData()
+    }
 
 
     loadMainData = async () => {
-        console.log(APIConst.Store_GetProductListByTypeId+this.state.secondTypeId)
-        fetch(APIConst.Store_GetProductListByTypeId+this.state.secondTypeId)
+        let {Id} = this.props
+        console.log(APIConst.Store_GetProductListByTypeId+Id)
+        fetch(APIConst.Store_GetProductListByTypeId+Id)
             .then((response)=>
                 response.json()
             )
@@ -134,7 +86,7 @@ class StoreCollectionScene extends PureComponent<>{
                     let newRowData = [row]
 
                     finalDataList.push({ data: [newRowData], key: i });
-                    this.state.adList.push(rowData.ad)
+                    // this.state.adList.push(rowData.ad)
                 }
 
                 this.setState({
@@ -200,14 +152,20 @@ class StoreCollectionScene extends PureComponent<>{
 
         let albumsArray = info.albums
         let albums = albumsArray[0]
-        let imageHolder = 'http://ms.1976magic.com/upload/201711/04/201711041709477331.jpg'
+        console.log("---------" + albums)
+        // let imageUrl = (albums.original_path ? albums.original_path : albums.thumb_path)
 
-        let imageUrl = (albums ? albums.original_path : imageHolder)
 
-        return <TouchableOpacity key={i} onPress={() =>                                   this.props.navigation.navigate('ProductDetail', {info: info,isFromCollection:true})} underlayColor="transparent">
+        let {onCellSelected} = this.props
+
+
+
+        return albums ? <TouchableOpacity key={i} onPress={() =>
+            onCellSelected(info)}
+                                 underlayColor="transparent">
             <View style={styles.row}>
 
-                <Image style={{height: (screen.width-2)/3, width:(screen.width-2)/3}} key = {info.product_id} resizeMode='stretch' source={{uri: imageUrl}}/>
+                <Image style={{height: (screen.width-2)/3, width:(screen.width-2)/3}} key = {info.product_id} resizeMode='stretch' source={{uri: albums.original_path}}/>
 
                 <Text style={{color:'black',fontSize:14,marginTop:0,padding:5}}
                       numberOfLines={3}>{info.product_name}</Text>
@@ -227,7 +185,7 @@ class StoreCollectionScene extends PureComponent<>{
                 </View>
 
             </View>
-        </TouchableOpacity>;
+        </TouchableOpacity> : <View/>
     }
 
 
@@ -237,7 +195,7 @@ class StoreCollectionScene extends PureComponent<>{
         let index = info.section.key
         let  item = this.state.adList[index]
         if (index==0 || index==1){
-            return item ? (
+            return(
                 <TouchableOpacity onPress={()=> {
                     this.props.navigation.navigate('ProductDetail', {info:item})
                 }}
@@ -247,7 +205,7 @@ class StoreCollectionScene extends PureComponent<>{
 
                     <Image style={{height: screen.height*0.2, width:screen.width,marginTop:20,marginBottom:20}} key = {index} resizeMode='cover' source={{uri: item.img_url}}/>
                 </TouchableOpacity>
-            ) : <View/>
+            )
         }
     }
 
@@ -259,83 +217,25 @@ class StoreCollectionScene extends PureComponent<>{
 
     render(){
 
-        let segmentIDdata = this.state.segmentIdList
-
         return(
-
-            this.state.isHasSegment ? <View style={styles.container}>
-
-
-                    <ScrollableTabView
-                        initialPage={0}
-                        scrollWithoutAnimation={false}
-                        renderTabBar={()=><ScrollableTabBar
-                            style={{ height: 40 }}
-                            underlineColor='#ce3d3a'
-                            activeTextColor= {color.mainBGColor}
-                            inactiveTextColor='white'
-                            // underlineHeight={0}
-                            textStyle={{ fontSize: 20 }}
-                            tabsContainerStyle={{ alignItems: 'center'}}
-                            backgroundColor='rgb(43,43,43)'
-                            underlineStyle={{height:0}}
-
-                        />}
-                    >
-                        {this.renderSegmentViews()}
-
-                    </ScrollableTabView>
-
-                </View>:
-
-            <View style={styles.container}>
-                <SectionList
-                    ListHeaderComponent={this.renderHeader}
-                    renderItem={this.renderCell}
-                    keyExtractor={this.keyExtractor}
-                    contentContainerStyle={styles.list}
-                    pageSize={3}
-                    renderSectionFooter={this._renderSectionHeader}
-                    showsVerticalScrollIndicator={false}
-                    sections={
-                        this.state.dataList
-                    }
-                />
-
-
-                {/*<TouchableOpacity style={styles.submitBtn} onPress={()=> {*/}
-                    {/*// this.props.navigation.navigate('ProductDetail', {info:item})*/}
-                    {/*this.loadMainData()*/}
-                {/*}}*/}
-                                  {/*activeOpacity={0.8}*/}
-                {/*>*/}
-
-                    {/*<Image style={{width:50,height:50}} resizeMode='cover' source={{uri: 'http://ms.1976magic.com/upload/201711/04/201711041709477331.jpg'}}/>*/}
-                {/*</TouchableOpacity>*/}
-
-
-            </View>
+                <View style={styles.container}>
+                    <SectionList
+                        ListHeaderComponent={this.renderHeader}
+                        renderItem={this.renderCell}
+                        keyExtractor={this.keyExtractor}
+                        contentContainerStyle={styles.list}
+                        pageSize={3}
+                        // renderSectionFooter={this._renderSectionHeader}
+                        showsVerticalScrollIndicator={false}
+                        sections={
+                            this.state.dataList
+                        }
+                    />
+                </View>
         )
     }
 
 
-    renderSegmentViews(){
-        let segment = []
-        let data = this.state.segmentIdList
-        for (let i = 0; i < data.length; i++) {
-            let item = data[i]
-            let id = item.id
-            let segmentView = <StoreCollectionPage Id={id} tabLabel= {item.title}
-            onCellSelected={(info)=>{
-
-                this.props.navigation.navigate('ProductDetail', {info: info,isFromCollection:true})
-            }}/>
-            segment.push(segmentView)
-        }
-
-        return segment
-
-    }
 
 
 
@@ -410,16 +310,9 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#787878'
     },
-    submitBtn: {
-        position: 'absolute',
-        top:300,
-        right:0,
-        margin:20,
-        marginBottom: "auto",
-        marginTop:"auto",
-        height:50,
-        width:50,
-        backgroundColor:'red'
+    testbg: {
+        height:100,
+        color: 'red'
     },
 
 
@@ -432,6 +325,6 @@ const styles = StyleSheet.create({
 
 
 
-export default StoreCollectionScene
+export default StoreCollectionPage
 
 

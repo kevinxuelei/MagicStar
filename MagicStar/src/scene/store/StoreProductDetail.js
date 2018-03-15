@@ -68,9 +68,16 @@ class StoreProductDetail extends PureComponent<>{
     }
 
 
+
+
     componentDidMount() {
 
     this.state.loadUrl =  this.props.navigation.state.params.isUsedProduct ? (APIConst.UserdProduct_GetuedProductDetail + this.props.navigation.state.params.info.product_id) : (APIConst.Store_GetDetailInfo + this.props.navigation.state.params.info.link_url)
+
+        if (this.props.navigation.state.params.isFromCollection){
+            this.state.loadUrl = APIConst.Store_GetDetailInfo + this.props.navigation.state.params.info.product_id
+        }
+
 
 
         fetch(this.state.loadUrl)

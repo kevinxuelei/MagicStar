@@ -156,53 +156,51 @@ class UsedStoreScene extends PureComponent<>{
 
 
     componentDidMount() {
-        // fetch(APIConst.UserdProduct_GetProductListForHome )
-        //     .then((response)=>
-        //         response.json()
-        //     )
-        //     .then((json)=>{
-        //         console.log(json)
-        //         let Data = json.Data.Data
+        fetch(APIConst.UserdProduct_GetProductListForHome )
+            .then((response)=>
+                response.json()
+            )
+            .then((json)=>{
+                console.log(json)
+                let Data = json.Data.Data
+
+                this.setState({
+                    refreshing: false,
+                    luobodata: Data.luobodata,
+                    categorydata: Data.categorydata,
+                    usedProductData: Data.usedProductData,
+                })
+            })
+            .catch((error)=>{
+                console.log(error)
+                alert(error)
+            })
+
+        // fetchRequest(APIConst.UserdProduct_GetProductListForHome_test,'GET')
+        //     .then( res=>{
+        //         //请求成功
+        //         if(res.header.statusCode == 'success'){
+        //             //这里设定服务器返回的header中statusCode为success时数据返回成功
+        //                     console.log(json)
+        //                     let Data = json.Data.Data
         //
-        //         this.setState({
-        //             refreshing: false,
-        //             luobodata: Data.luobodata,
-        //             categorydata: Data.categorydata,
-        //             usedProductData: Data.usedProductData,
-        //         })
-        //     })
-        //     .catch((error)=>{
-        //         console.log(error)
-        //         alert(error)
-        //     })
-
-        fetchRequest(APIConst.UserdProduct_GetProductListForHome_test,'GET')
-            .then( res=>{
-                //请求成功
-                if(res.header.statusCode == 'success'){
-                    //这里设定服务器返回的header中statusCode为success时数据返回成功
-                            console.log(json)
-                            let Data = json.Data.Data
-
-                            this.setState({
-                                refreshing: false,
-                                luobodata: Data.luobodata,
-                                categorydata: Data.categorydata,
-                                usedProductData: Data.usedProductData,
-                            })
-
-                }else{
-                    //服务器返回异常，设定服务器返回的异常信息保存在 header.msgArray[0].desc
-                    console.log(res.header.msgArray[0].desc);
-                }
-            }).catch( err=>{
-            //请求失败
-        })
+        //                     this.setState({
+        //                         refreshing: false,
+        //                         luobodata: Data.luobodata,
+        //                         categorydata: Data.categorydata,
+        //                         usedProductData: Data.usedProductData,
+        //                     })
+        //
+        //         }else{
+        //             //服务器返回异常，设定服务器返回的异常信息保存在 header.msgArray[0].desc
+        //             console.log(res.header.msgArray[0].desc);
+        //         }
+        //     }).catch( err=>{
+        //     //请求失败
+        //     alert(err)
+        // })
 
     }
-
-
-
 
 }
 

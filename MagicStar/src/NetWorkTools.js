@@ -12,7 +12,9 @@
  * @param {number} [timeout=10000]   单位：毫秒，这里设置默认超时时间为10秒
  * @return 返回Promise
  */
-function timeout_fetch(fetch_promise,timeout = 10000) {
+
+
+function timeout_fetch(fetch_promise,timeout = 1000000) {
     let timeout_fn = null;
 
     //这是一个可以被reject的promise
