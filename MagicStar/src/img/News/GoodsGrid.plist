@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   GoodsGrid.plist
+   星魔力1976
+
+   Created by deng on 2017/9/12.
+   Copyright (c) 2017年 apple. All rights reserved.
+-->
+<plist version="1.0">
+    <array>
+        <dict>
+            <key>iconImage</key>
+            <string>v1</string>
+            <key>gridTitle</key>
+            <string>撩妹</string>
+            <key>classId</key>
+            <string>56</string>
+        </dict>
+        <dict>
+            <key>iconImage</key>
+            <string>v2</string>
+            <key>gridTitle</key>
+            <string>社交</string>
+            <key>classId</key>
+            <string>57</string>
+        </dict>
+        <dict>
+            <key>iconImage</key>
+            <string>v3</string>
+            <key>gridTitle</key>
+            <string>亲子</string>
+            <key>classId</key>
+            <string>58</string>
+        </dict>
+        <dict>
+            <key>iconImage</key>
+            <string>v4</string>
+            <key>gridTitle</key>
+            <string>纸牌</string>
+            <key>classId</key>
+            <string>59</string>
+        </dict>
+        <dict>
+            <key>iconImage</key>
+            <string>v5</string>
+            <key>gridTitle</key>
+            <string>硬币</string>
+            <key>classId</key>
+            <string>60</string>
+        </dict>
+        <dict>
+            <key>iconImage</key>
+            <string>v6</string>
+            <key>gridTitle</key>
+            <string>近景</string>
+            <key>classId</key>
+            <string>61</string>
+        </dict>
+        <dict>
+            <key>iconImage</key>
+            <string>v7</string>
+            <key>gridTitle</key>
+            <string>舞台</string>
+            <key>classId</key>
+            <string>62</string>
+        </dict>
+        <dict>
+            <key>iconImage</key>
+            <string>v8</string>
+            <key>gridTitle</key>
+            <string>花切</string>
+            <key>classId</key>
+            <string>63</string>
+        </dict>
+        
+        
+    </array>
+</plist>
