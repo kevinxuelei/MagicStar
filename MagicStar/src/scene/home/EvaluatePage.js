@@ -68,7 +68,7 @@ class EvaluatePage extends PureComponent<Props>{
                                                   key = {item.link_url}
                                 >
 
-                                    <Image style={{height: screen.height*0.3, width:screen.width}} key = {index} resizeMode='cover' source={{uri: item.img_url}}/>
+                                    <Image style={{height: screen.height*0.3, width:screen.width}} key = {index} resizeMode='stretch' source={{uri: item.img_url}}/>
                                 </TouchableOpacity>
 
                             )
@@ -79,6 +79,7 @@ class EvaluatePage extends PureComponent<Props>{
             </View>
         )
     }
+
 
     renderCell = (info : Object) => {
         let {onCellSelected} = this.props

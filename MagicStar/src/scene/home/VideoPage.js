@@ -135,7 +135,9 @@ class VideoPage  extends PureComponent<Props,State>{
                     ListHeaderComponent={this.renderHeader}
                     renderItem={this.renderCell}
                     keyExtractor={this.keyExtractor}
-                    contentContainerStyle={styles.listViewStyle}
+                    // contentContainerStyle={styles.listViewStyle}
+                    // columnWrapperStyle={{borderWidth:2,borderColor:'black',paddingLeft:20}}
+                    numColumns ={2}
                     refreshing={this.state.refresh}
                     onEndReachedThreshold= {0.4}
                     onRefresh={this._onRefresh}
@@ -245,7 +247,7 @@ class VideoPage  extends PureComponent<Props,State>{
 
         //直接装入数组
             allBadge.push(
-                <VideoCategoryView model={model}></VideoCategoryView>
+                <VideoCategoryView model={model} key={i}></VideoCategoryView>
             );
         }
         //返回

@@ -105,6 +105,7 @@ class StoreCollectionPage extends PureComponent<Props>{
 
     renderHeader = ()=>{
         let swiperH = (this.state.bannerList.length !== 0) ? screen.height*0.25 : 0
+        let {onCellSelected} = this.props
         return(
             <View style={styles.headerView}>
                 <Swiper autoplay = {true}
@@ -117,10 +118,11 @@ class StoreCollectionPage extends PureComponent<Props>{
                         this.state.bannerList.map((item, index) => {
                             return (
                                 <TouchableOpacity onPress={()=> {
-                                    this.props.navigation.navigate('ProductDetail', {info:item})
+                                    // this.props.navigation.navigate('ProductDetail', {info:item})
+                                    onCellSelected(item)
                                 }}
                                                   activeOpacity={0.8}
-                                                  key = {item.link_url}
+                                                  key = {index}
                                 >
 
                                     <Image style={{height: screen.height*0.3, width:screen.width}} key = {index} resizeMode='cover' source={{uri: item.img_url}}/>
@@ -223,8 +225,9 @@ class StoreCollectionPage extends PureComponent<Props>{
                         ListHeaderComponent={this.renderHeader}
                         renderItem={this.renderCell}
                         keyExtractor={this.keyExtractor}
-                        contentContainerStyle={styles.list}
-                        pageSize={3}
+                        // contentContainerStyle={styles.list}
+                        // pageSize={3}
+                        numColumns ={3}
                         // renderSectionFooter={this._renderSectionHeader}
                         showsVerticalScrollIndicator={false}
                         sections={
@@ -232,6 +235,8 @@ class StoreCollectionPage extends PureComponent<Props>{
                         }
                     />
                 </View>
+
+
         )
     }
 

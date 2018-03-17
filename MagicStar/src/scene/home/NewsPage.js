@@ -100,7 +100,7 @@ class NewsPage extends PureComponent<Props>{
             >
                 <View style={{backgroundColor:'white',justifyContent: 'space-between',
                     height:140-20}}>
-                    <Text style={{marginTop:20,fontSize:16,numberOfLines:3,width:screen.width-150-50}}>{info.item.title}</Text>
+                    <Text style={{marginTop:20,fontSize:16,width:screen.width-150-50}} numberOfLines={3}>{info.item.title}</Text>
                     <Text style={{marginBottom:20,fontSize:15,color:'gray'}}>{info.item.fields.source +"  "+ info.item.fields.zan_count}评论</Text>
                 </View>
                 <Image style={{width:150,height:100}} source={{uri: info.item.fields.homepic}} />
@@ -116,6 +116,8 @@ class NewsPage extends PureComponent<Props>{
                 </TouchableOpacity>
         )
     }
+
+
 
     onMenuSelected = (info: any) => {
         // alert(info.title )

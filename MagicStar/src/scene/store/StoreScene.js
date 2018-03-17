@@ -16,6 +16,8 @@ import MenuView from "./MenuView";
 import Swiper from 'react-native-swiper';
 import APIConst from "../../APIConst";
 
+var ReactSDCycleScrollView = require('../../iOSComponent/ReactSDCycleScrollView');
+
 
 
 type Props = {
@@ -28,6 +30,7 @@ type State = {
     bannerList: Array<Object>,
     categoryList: Array<Object>,
     refreshing: boolean,
+    bannerImgs: Array<Object>,
 }
 
 
@@ -55,6 +58,7 @@ class StoreScene extends PureComponent<>{
             bannerList: [],
             categoryList: [],
             refreshing: false,
+            bannerImgs:[],
         };
       }
 
@@ -63,33 +67,23 @@ class StoreScene extends PureComponent<>{
         let swiperH = (this.state.bannerList.length !== 0) ? screen.height*0.3 : 0
         return(
                 <View style={styles.headerView}>
-                    <Swiper autoplay = {true}
-                    height = {swiperH}
-                    showsPagination = {true}
-                    dotColor='white'
-                    activeDotColor='yellow'
-                    horizontal={true}>
-                    {
-                    this.state.bannerList.map((item, index) => {
-                    return (
-                        <TouchableOpacity onPress={()=> {
-                            this.props.navigation.navigate('ProductDetail', {info:item})
-                        }}
-                        activeOpacity={0.8}
-                                          key = {item.link_url}
-                        >
+                    <ReactSDCycleScrollView style={{height:swiperH}}
+                                            autoScrollTimeInterval = {2}
+                                            imageURLStringsGroup = {this.state.bannerImgs}
 
-                            <Image style={{height: screen.height*0.3, width:screen.width}} key = {index} resizeMode='cover' source={{uri: item.img_url}}/>
-                    </TouchableOpacity>
-
-                    )
-                    })
-                    }
-                    </Swiper>
+                                            onClickBanner={(e) => {
+                                                console.log('test' + e.nativeEvent.value);
+                                                let bannerArr = this.state.bannerList
+                                                let item  = bannerArr[e.nativeEvent.value]
+                                                this.props.navigation.navigate('ProductDetail', {info:item})
+                                            }}
+                    />
                     <MenuView menuInfos={this.state.categoryList} onMenuSelected={this.onMenuSelected}/>
                 </View>
         )
     }
+
+
 
     renderCell = (info : Object) => {
         return(
@@ -167,6 +161,15 @@ class StoreScene extends PureComponent<>{
             .then((json)=>{
                 console.log(json)
                 let Data = json.Data
+                let bannerImageUrlArr = []
+
+                for (let i = 0; i < Data.luobodata.length; i++) {
+                    let item = Data.luobodata[i]
+                    let imageUrl = item.img_url
+                    bannerImageUrlArr.push(imageUrl)
+                }
+                this.state.bannerImgs = bannerImageUrlArr
+
                 this.setState({
                     dataList:Data.loucengdata,
                     bannerList:Data.luobodata,
@@ -223,10 +226,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     }
-
-
 })
-
-
 
 export default StoreScene

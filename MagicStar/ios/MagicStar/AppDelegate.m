@@ -12,6 +12,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -29,7 +30,13 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+  rootViewController.navigationItem.title = @"Hello World!";
+  
+  // 初始化Nav
+  _nav = [[UINavigationController alloc]initWithRootViewController:rootViewController];
+  _nav.navigationBarHidden = YES;
+  
+  self.window.rootViewController = _nav;
   [self.window makeKeyAndVisible];
   return YES;
 }

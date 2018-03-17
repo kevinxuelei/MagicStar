@@ -105,6 +105,8 @@ class StoreProductDetail extends PureComponent<>{
     }
 
     render(){
+
+        let headerImageUrl = this.state.userinfo.avatar ? this.state.userinfo.avatar:'http://ms.1976magic.com/upload/201712/06/201712061713515928.jpg'
         return(
             <View style={styles.container}>
                 <ScrollView
@@ -124,7 +126,7 @@ class StoreProductDetail extends PureComponent<>{
                         {
                             this.state.albums.map((item, index) => {
                                 return (
-                                    <Image style={{height:screen.width,width:screen.width}} key = {item.link_url} resizeMode='stretch' source={{uri: item.thumb_path}}/>
+                                    <Image style={{height:screen.width,width:screen.width}} key = {index} resizeMode='stretch' source={{uri: item.thumb_path}}/>
                                 )
                             })
                         }
@@ -151,7 +153,7 @@ class StoreProductDetail extends PureComponent<>{
 
                         <View style={{backgroundColor:'white',height:70,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
 
-                            <Image style={{height:40,width:40}} resizeMode='stretch' source={{uri: this.state.userinfo.avatar}}/>
+                            <Image style={{height:40,width:40}} resizeMode='stretch' source={{uri: headerImageUrl}}/>
 
                             <Text style={{fontSize:15, color:'black',padding:10}}>{this.state.userinfo.nick_name}</Text>
 

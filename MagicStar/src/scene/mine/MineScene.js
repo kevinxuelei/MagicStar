@@ -7,7 +7,8 @@
 import React, {PureComponent} from 'react'
 import {
     View, Text, StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar, FlatList,
-    RefreshControl
+    RefreshControl, NativeModules,
+    requireNativeComponent
 } from 'react-native'
 
 
@@ -19,6 +20,7 @@ import SpacingView from "../../widget/SpacingView";
 import { connect } from 'react-redux';
 import { updateAvatar, updateName, updateSex } from '../../common/reduxUse/actions/UserInfoAction';
 
+var Push = NativeModules.PushNative;
 
 type Props = {
 
@@ -27,10 +29,6 @@ type Props = {
 type State = {
     isRefreshing: boolean,
 }
-
-
-
-
 
 
 class MineScene extends PureComponent<Props, State>{
@@ -49,10 +47,6 @@ class MineScene extends PureComponent<Props, State>{
             isRefreshing: false
         }
     }
-
-
-
-
 
     renderHeader() {
 
@@ -76,7 +70,9 @@ class MineScene extends PureComponent<Props, State>{
                         <Text style={{color: 'black',fontSize:17 }}>{this.props.undateUserInfo.nickName}</Text>
 
                         <TouchableOpacity onPress={()=>
-                            alert('邀请有奖')
+                            // alert('邀请有奖')
+                            Push.RNOpenOneVC('邀请有奖')
+
                         }>
                             <Image style={{width:100,height:25}} source={require('../../img/mine/my_yqyj.jpg')} />
                         </TouchableOpacity>
@@ -89,12 +85,14 @@ class MineScene extends PureComponent<Props, State>{
 
                 <View style={{backgroundColor:'white',width:screen.width,height:70,}}>
                     <View style={{backgroundColor:'white',width:150,height:70,justifyContent: 'center',alignItems: 'center',}}>
-                        <Text style={{fontSize:15,paddingTop:10,textColor:'gray' }}>我的魔豆</Text>
+                        <Text style={{fontSize:15,paddingTop:10,color:'gray' }}>我的魔豆</Text>
                         <Text style={{color: 'black',fontSize:15 ,paddingTop:10 }}>33</Text>
                     </View>
                 </View>
 
             </View>
+
+
 
 
         )

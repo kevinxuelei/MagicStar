@@ -17,6 +17,7 @@ import CategoryView from "./CategoryView";
 import fetchRequest from "../../NetWorkTools";
 
 
+
 type State = {
     luobodata: Array<Object>,
     categorydata: Array<Object>,
@@ -75,7 +76,7 @@ class UsedStoreScene extends PureComponent<>{
 
                                 }}
                                                   activeOpacity={0.8}
-                                                  key = {item.link_url}
+                                                  key = {index}
                                 >
 
                                     <Image style={{height: screen.height*0.25, width:screen.width}} key = {index} resizeMode='stretch' source={{uri: item.img_url}}/>
@@ -148,7 +149,8 @@ class UsedStoreScene extends PureComponent<>{
                     ListHeaderComponent={this.renderHeader}
                     renderItem={this.renderCell}
                     keyExtractor={this.keyExtractor}
-                    contentContainerStyle={styles.listViewStyle}
+                    numColumns ={3}
+                    // contentContainerStyle={styles.listViewStyle}
                 />
             </View>
         )

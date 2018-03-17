@@ -293,8 +293,10 @@ class StoreCollectionScene extends PureComponent<>{
                     ListHeaderComponent={this.renderHeader}
                     renderItem={this.renderCell}
                     keyExtractor={this.keyExtractor}
-                    contentContainerStyle={styles.list}
-                    pageSize={3}
+                    // contentContainerStyle={styles.list}
+                    numColumns ={3}
+
+                    // pageSize={3}
                     renderSectionFooter={this._renderSectionHeader}
                     showsVerticalScrollIndicator={false}
                     sections={
@@ -325,7 +327,7 @@ class StoreCollectionScene extends PureComponent<>{
         for (let i = 0; i < data.length; i++) {
             let item = data[i]
             let id = item.id
-            let segmentView = <StoreCollectionPage Id={id} tabLabel= {item.title}
+            let segmentView = <StoreCollectionPage key={i} Id={id} tabLabel= {item.title}
             onCellSelected={(info)=>{
 
                 this.props.navigation.navigate('ProductDetail', {info: info,isFromCollection:true})
