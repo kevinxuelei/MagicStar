@@ -16,6 +16,7 @@
     "react-native-page-control": "^1.1.1",
     "react-native-refresh-list-view": "^1.0.7",
     "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-sqlite-storage": "^3.3.4",
     "react-native-swiper": "^1.5.13",
     "react-native-video": "^2.0.0",
     "react-navigation": "^1.2.1",

@@ -48,9 +48,20 @@ class MineScene extends PureComponent<Props, State>{
         }
     }
 
+    componentWillMount() {
+        // this.state = {
+        //     isRefreshing: false
+        // }
+    }
+
     renderHeader() {
 
-        var avatar = ((this.props.undateUserInfo.avatar==='default')?require('../../img/store/background_image.png'): this.props.undateUserInfo.avatar)
+        var avatar = (this.props.undateUserInfo.avatar==='default') ? <Image style={styles.avatar} source={require('../../img/store/background_image.png')} /> : <Image style={styles.avatar} source={this.props.undateUserInfo.avatar} />
+
+        let string = this.props.undateUserInfo.avatar
+        if( string ==='http://ms.1976magic.com/Upload/PicAvatar/2017-11-02/s_97a5f66c-7ba5-4069-9557-3aed0aca2eb0.jpg'){
+            avatar = <Image style={styles.avatar} source={{uri: string}} />
+        }
 
         return (
 
@@ -60,8 +71,8 @@ class MineScene extends PureComponent<Props, State>{
                     <TouchableOpacity onPress={()=>
                         this.props.navigation.navigate('MineInfomation')
                     }>
-                       <Image style={styles.avatar} source={avatar} />
-
+                       {/*<Image style={styles.avatar} source={avatar} />*/}
+                        {avatar}
 
                     </TouchableOpacity>
 
@@ -86,7 +97,7 @@ class MineScene extends PureComponent<Props, State>{
                 <View style={{backgroundColor:'white',width:screen.width,height:70,}}>
                     <View style={{backgroundColor:'white',width:150,height:70,justifyContent: 'center',alignItems: 'center',}}>
                         <Text style={{fontSize:15,paddingTop:10,color:'gray' }}>我的魔豆</Text>
-                        <Text style={{color: 'black',fontSize:15 ,paddingTop:10 }}>33</Text>
+                        <Text style={{color: 'black',fontSize:15 ,paddingTop:10 }}>{this.props.undateUserInfo.coin}</Text>
                     </View>
                 </View>
 
@@ -224,3 +235,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(MineScene);
+

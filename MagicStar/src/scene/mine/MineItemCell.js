@@ -35,6 +35,11 @@ class MineItemCell extends PureComponent<Props> {
 
         let icon = this.props.image && <Image style={styles.icon} source={this.props.image} />
         let headerImge = this.props.headerImage && <Image style={styles.headerImage} source={this.props.headerImage} />
+        let string = this.props.headerImage
+        if( string ==='http://ms.1976magic.com/Upload/PicAvatar/2017-11-02/s_97a5f66c-7ba5-4069-9557-3aed0aca2eb0.jpg'){
+            headerImge = <Image style={styles.headerImage} source={{uri: this.props.headerImage}} />
+        }
+
 
         return (
             <View style={styles.container}>

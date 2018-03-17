@@ -5,15 +5,22 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers/UserInfoReducer';
+import sagas from '../saga/UserInfoSaga';
+import createSagaMiddleware, { END } from 'redux-saga';
 
 const configureStore = preloadedState => {
-    return createStore (
+    const sagaMiddleware = createSagaMiddleware();
+    const store = createStore(
         rootReducer,
         preloadedState,
         compose (
-            applyMiddleware(createLogger())
+            applyMiddleware(sagaMiddleware, createLogger())
         )
-    );
+    )
+
+    sagaMiddleware.run(sagas);
+    store.close = () => store.dispatch(END);
+    return store;
 }
 
 

@@ -12,6 +12,8 @@ const new_signtureStr = '&Timespan=2018-03-13%2022%3A18%3A05&isRefresh=true&sign
 
 export default {
 
+    UserInfo_Url: '/api/Account/GetUserInfo?privateKey=XJL4FH&userId=29',
+
     //首页-新闻头部轮播
     News_xinwenGetCustomLuoboNewsList: HostUrl + '/api/News/GetCustomLuoboNewsList',
     //首页-新闻列表

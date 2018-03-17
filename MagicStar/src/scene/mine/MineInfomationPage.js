@@ -23,7 +23,8 @@ import PickerWidget from "../../common/widget/PickerWidget";
 var ImagePicker = require('react-native-image-picker');
 
 import { connect } from 'react-redux';
-import { updateAvatar, updateName, updateSex } from '../../common/reduxUse/actions/UserInfoAction';
+import { updateAvatar, updateName, updateSex,fetch_requsested } from '../../common/reduxUse/actions/UserInfoAction';
+import {FETCH_REQUESTED} from "../../common/reduxUse/actionTypes/UserInfoActionTypes";
 
 
 
@@ -134,7 +135,7 @@ class MineInfomationPage extends PureComponent<Props, State>{
                         this.updateSex();
 
                     }else {
-                        alert(info)
+                        this.props.dispatch(fetch_requsested())
                     }
                 }
                 }/>
@@ -167,11 +168,23 @@ class MineInfomationPage extends PureComponent<Props, State>{
                 [
                     {title: '昵称',subtitle:this.props.undateUserInfo.nickName},
                     {title: '性别',subtitle:this.props.undateUserInfo.sex},
-                    {title: '收货地址'}
+                    {title: 'redux+saga异步获取用户信息'}
 
                 ]
             ]
         )
+    }
+
+    errorCB(err) {
+        console.log("SQL Error: " + err);
+    }
+
+    successCB() {
+        console.log("SQL executed fine");
+    }
+
+    openCB() {
+        console.log("Database OPENED");
     }
 
 
