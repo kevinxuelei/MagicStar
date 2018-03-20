@@ -30,6 +30,9 @@
   // 另外一种可以获得RN的类方法
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:[NSString stringWithFormat:@"./src/scene/mine/MineInvitation"] fallbackResource:nil];
   
+  
+//  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
+  
 //  NSString * strUrl = @"http://localhost:8081/index.ios.bundle?platform=ios&dev=true";
   
 //  jsCodeLocation = [NSURL URLWithString:strUrl];
