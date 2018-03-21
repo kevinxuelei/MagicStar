@@ -18,6 +18,7 @@ type Props = {
     title: string,
     subtitle?: string,
     model:any,
+    onCategorySelected: Function,
 }
 
 
@@ -54,6 +55,8 @@ class VideoCategoryView extends PureComponent<Props> {
             icon = require('../../img/News/v8.png')
         }
 
+        let {onCategorySelected} = this.props
+
         return (
 
 
@@ -61,7 +64,8 @@ class VideoCategoryView extends PureComponent<Props> {
 
                 <TouchableOpacity  style={styles.autoViewStyle}
                                   onPress={() => {
-                                      alert(this.props.model.gridTitle)
+                                      // alert(this.props.model.gridTitle)
+                                      onCategorySelected(this.props.model)
                                   }}>
                     <Image style={styles.imagesStyle}  source={icon} />
                     <Text style={{fontSize:14}}>{this.props.model.gridTitle}</Text>

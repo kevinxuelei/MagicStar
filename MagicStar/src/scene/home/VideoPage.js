@@ -24,7 +24,9 @@ var itemW = (screen.width)/2;
 var page  = 1;
 type Props = {
     onCellSelected: Function,
+    onCategoryItemSelected: Function,
 }
+
 
 
 type State = {
@@ -245,9 +247,14 @@ class VideoPage  extends PureComponent<Props,State>{
         for(var i=0 ;i<BadgeData.length;i++){
             var model = BadgeData[i];
 
+            let {onCategoryItemSelected} = this.props
+
         //直接装入数组
             allBadge.push(
-                <VideoCategoryView model={model} key={i}></VideoCategoryView>
+                <VideoCategoryView model={model} key={i} onCategorySelected={(info)=>{
+                    // alert(info.classId)
+                    onCategoryItemSelected(info)
+                }}></VideoCategoryView>
             );
         }
         //返回

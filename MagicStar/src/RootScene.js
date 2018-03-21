@@ -17,6 +17,7 @@ import StoreCollectionScene from "./scene/store/StoreCollectionScene";
 import VideoDetailPage from "./scene/home/VideoDetailPage";
 import NewDetailPage from "./scene/home/NewDetailPage";
 import MineInfomationPage from "./scene/mine/MineInfomationPage";
+import VideoCollectionPage from "./scene/home/VideoCollectionPage";
 
 
 const lightContentScenes = ['Home', 'Mine']
@@ -159,7 +160,7 @@ const Navigator = StackNavigator(
         VideoPlay: {screen: VideoDetailPage},
         NewsDetail: {screen: NewDetailPage},
         MineInfomation: {screen:  MineInfomationPage},
-
+        VideoSubCollectionPage: {screen:  VideoCollectionPage},
 
 
 

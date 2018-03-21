@@ -29,6 +29,9 @@ export default {
     News_VideoGetCustomLuoboNewsList: HostUrl + '/api/Video/GetCustomLuoboNewsList',
     //首页-视频列表
     News_VideoGetNewsList: HostUrl + '/api/Video/GetNewsList?deviceId=d820356316395d864b575b0783ea88a93daa3dfb&pageSize=10&pageIndex=',
+    //首页-视频子列表
+    News_sub_VideoGetNewsList: HostUrl + '/api/Video/GetNewsList?deviceId=27926a8ff13b18f71301145d4e592778c8ccb958&pageIndex=1&pageSize=100&categoryId=',
+
 
 
 

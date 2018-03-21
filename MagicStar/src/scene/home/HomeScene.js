@@ -65,11 +65,14 @@ class HomeScene extends PureComponent<Props>{
 
                     <VideoPage tabLabel='视频' onCellSelected={(info)=>{
                         this.props.navigation.navigate('VideoPlay', {info:info})
+                    }} onCategoryItemSelected={(info) =>{
+                        this.props.navigation.navigate('VideoSubCollectionPage', {info:info})
                     }}/>
                     <EvaluatePage tabLabel='评测' onCellSelected={(info) =>{
                         this.props.navigation.navigate('NewsDetail', {info:info})
                     }}/>
                 </ScrollableTabView>
+
 
             </View>
         )
